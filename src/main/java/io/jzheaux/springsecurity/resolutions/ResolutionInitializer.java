@@ -19,7 +19,7 @@ public class ResolutionInitializer implements SmartInitializingSingleton {
 	public void afterSingletonsInstantiated() {
 		this.resolutions.save(new Resolution("Read War and Peace", "user"));
 		this.resolutions.save(new Resolution("Free Solo the Eiffel Tower", "user"));
-		this.resolutions.save(new Resolution("Hang Christmas Lights", "user"));
+		this.resolutions.save(new Resolution("Hang Christmas Lights", "hasread"));
 
 		User admin = new User("admin","{bcrypt}$2a$10$bTu5ilpT4YILX8dOWM/05efJnoSlX4ElNnjhNopL9aPoRyUgvXAYa");
 		admin.setFullName("Admin Adminson");
@@ -46,6 +46,8 @@ public class ResolutionInitializer implements SmartInitializingSingleton {
 		haswrite.setFullName("Has Write");
 		haswrite.setPassword("{bcrypt}$2a$10$MywQEqdZFNIYnx.Ro/VQ0ulanQAl34B5xVjK2I/SDZNVGS5tHQ08W");
 		haswrite.grantAuthority("resolution:write");
+		haswrite.addFriend(hasread);
+		haswrite.setSubscription("premium");
 		this.users.save(haswrite);
 	}
 }
