@@ -16,6 +16,7 @@ import java.util.List;
 
 import static org.springframework.http.HttpMethod.GET;
 
+@EnableGlobalMethodSecurity(prePostEnabled = true)
 @SpringBootApplication
 public class ResolutionsApplication extends WebSecurityConfigurerAdapter {
 
@@ -26,10 +27,9 @@ public class ResolutionsApplication extends WebSecurityConfigurerAdapter {
 	@Override
 	protected void configure(HttpSecurity http) throws Exception {
 		http
-			.authorizeRequests(authz -> authz
-					.mvcMatchers(GET, "/resolutions", "/resolution/**").hasAuthority("resolution:read")
-					.anyRequest().hasAuthority("resolution:write"))
-			.httpBasic(basic -> {});
+				.authorizeRequests(authz -> authz
+						.anyRequest().authenticated())
+				.httpBasic(basic -> {});
 	}
 	@Bean
 	UserDetailsService userDetailsService(UserRepository users) {
