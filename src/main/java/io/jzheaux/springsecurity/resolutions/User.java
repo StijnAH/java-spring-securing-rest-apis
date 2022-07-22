@@ -13,6 +13,9 @@ public class User implements Serializable {
     @Id
     UUID id;
 
+    @Column(name="full_name")
+    String fullName;
+
     @Column
     String username;
 
@@ -37,6 +40,7 @@ public class User implements Serializable {
         this.id = user.id;
         this.username = user.username;
         this.password = user.password;
+        this.fullName = user.fullName;
         this.enabled = user.enabled;
         this.userAuthorities = user.userAuthorities;
     }
@@ -72,5 +76,13 @@ public class User implements Serializable {
     public void grantAuthority(String authority) {
         UserAuthority userAuthority = new UserAuthority(this, authority);
         this.userAuthorities.add(userAuthority);
+    }
+
+    public String getFullName() {
+        return fullName;
+    }
+
+    public void setFullName(String fullName) {
+        this.fullName = fullName;
     }
 }
